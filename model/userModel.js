@@ -10,7 +10,7 @@ const User = db.define(
       autoIncrement: true, //incrmenta o id em uma unidade evitando duplicidade de chave primaria
       allowNull: false, //define que este atributo não pode ser vazio
     },
-    usuario: {
+    nome: {
       type: sequelize.STRING,
       allowNull: false,
       unique: true, //define que todos os valores desta coluna deve ser único

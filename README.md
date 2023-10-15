@@ -2,9 +2,9 @@
 
 # Introdução
 
-Uma Interface de Programação de Aplicativos para a web, ou simplesmente APIs, são  uma peça fundamental na interconexão e na colaboração de sistemas de software pela internet. As APIs HTTP, mais especificamente são como pontes invisíveis que permitem que diferentes aplicativos, plataformas e serviços comuniquem-se e compartilhem dados de maneira eficiente através do protocolo HTTP (Hypertext Transfer Protocol). Nos últimos anos, o universo das APIs HTTP tem vivenciado um crescimento exponencial, impulsionado pela necessidade de integração entre sistemas web e expansão de ecossistemas digitais.
+Uma Interface de Programação de Aplicativos para a web, ou simplesmente APIs, são uma peça fundamental na interconexão e na colaboração de sistemas de software pela internet. As APIs HTTP, mais especificamente são como pontes invisíveis que permitem que diferentes aplicativos, plataformas e serviços comuniquem-se e compartilhem dados de maneira eficiente através do protocolo HTTP (Hypertext Transfer Protocol). Nos últimos anos, o universo das APIs HTTP tem vivenciado um crescimento exponencial, impulsionado pela necessidade de integração entre sistemas web e expansão de ecossistemas digitais.
 
-As APIs  são o meio de caminho entre o banco de dados e o cliente em sistemas de software. Ela recebe as solicitações do cliente, executa a lógica de negócios, como autenticação e autorização, e traduz essas solicitações em comandos compreensíveis para o banco de dados. Posteriormente, a API recebe as respostas do banco de dados e as retorna de forma estruturada ao cliente. Além de facilitar a comunicação, a API oferece benefícios essenciais, como segurança, abstração dos detalhes técnicos do banco de dados e flexibilidade para realizar alterações no sistema sem afetar diretamente o cliente.
+As APIs são o meio de caminho entre o banco de dados e o cliente em sistemas de software. Ela recebe as solicitações do cliente, executa a lógica de negócios, como autenticação e autorização, e traduz essas solicitações em comandos compreensíveis para o banco de dados. Posteriormente, a API recebe as respostas do banco de dados e as retorna de forma estruturada ao cliente. Além de facilitar a comunicação, a API oferece benefícios essenciais, como segurança, abstração dos detalhes técnicos do banco de dados e flexibilidade para realizar alterações no sistema sem afetar diretamente o cliente.
 
 ![image](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/578e089d-b208-4f69-ba46-e44bfe3d72d0)
 
@@ -25,10 +25,10 @@ CRUD é como um conjunto de ações básicas que os aplicativos e sistemas usam 
 
 As operações CRUD (Create, Read, Update, Delete) desempenham um papel central nas APIs REST, relacionando-se diretamente aos métodos HTTP mencionados no tópico anterior. Eis como eles se encaixam:
 
-1. **GET (Read)**: O método GET é usado para recuperar informações de um recurso específico, representando a operação de leitura (Read) em CRUD. 
+1. **GET (Read)**: O método GET é usado para recuperar informações de um recurso específico, representando a operação de leitura (Read) em CRUD.
 2. **POST (Create)**: O método POST é utilizado para criar um novo recurso. Envio de dados através de um formulário da web ou de uma solicitação de API.
-3. **PUT ou PATCH (Update)**: O método PUT (ou em alguns casos o PATCH) é empregado para atualizar um recurso existente. Isso reflete a operação de atualização (Update) em CRUD. 
-4. **DELETE (Delete)**: O método DELETE é usado para remover um recurso. Essa ação se alinha com a operação de exclusão (Delete) em CRUD. 
+3. **PUT ou PATCH (Update)**: O método PUT (ou em alguns casos o PATCH) é empregado para atualizar um recurso existente. Isso reflete a operação de atualização (Update) em CRUD.
+4. **DELETE (Delete)**: O método DELETE é usado para remover um recurso. Essa ação se alinha com a operação de exclusão (Delete) em CRUD.
 
 ![image](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/911ccae1-f07b-4734-8f9a-69eb6fe3036d)
 
@@ -38,7 +38,7 @@ As operações CRUD (Create, Read, Update, Delete) desempenham um papel central 
 
 ## Banco de Dados e Mapeamento usando ODM e ORM
 
-ORM (Object-Relational Mapping) e ODM (Object-Document Mapping) são padrões de mapeamento que facilitam a interação entre sistemas de software  e bancos de dados relacionais (no caso do ORM) ou bancos de dados NoSQL orientados a documentos (no caso do ODM). A principal motivação para o uso de objetos de mapeamento é a abstração do banco de dados permitindo interagir com o banco de dados sem precisar escrever SQL diretamente. Outra motivação é que o código ORM é frequentemente independente do banco de dados subjacente, permitindo uma mudança mais fácil de um banco de dados para outro.
+ORM (Object-Relational Mapping) e ODM (Object-Document Mapping) são padrões de mapeamento que facilitam a interação entre sistemas de software e bancos de dados relacionais (no caso do ORM) ou bancos de dados NoSQL orientados a documentos (no caso do ODM). A principal motivação para o uso de objetos de mapeamento é a abstração do banco de dados permitindo interagir com o banco de dados sem precisar escrever SQL diretamente. Outra motivação é que o código ORM é frequentemente independente do banco de dados subjacente, permitindo uma mudança mais fácil de um banco de dados para outro.
 
 ![image](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/368470c6-6739-452e-80bf-831916ff1a73)
 
@@ -147,14 +147,14 @@ app.get("/", async (req, res) => {
 
 //inicia o servidor através de uma self-invoked function que executa na inicialização da aplicação
 (async () => {
-    try {
-      await bd.sync({ force: false });// sincroniza o banco
-      console.log("Banco conectado!");
-      app.listen(3000, () => console.log("Service is live!")); //iniciar efetivamente o servidor na porta 3000
-    } catch (err) {
-      console.log(err); //imprime o erro caso este ocorra
-    }
-  })();
+  try {
+    await bd.sync({ force: false }); // sincroniza o banco
+    console.log("Banco conectado!");
+    app.listen(3000, () => console.log("Service is live!")); //iniciar efetivamente o servidor na porta 3000
+  } catch (err) {
+    console.log(err); //imprime o erro caso este ocorra
+  }
+})();
 ```
 
 Observe o objeto passado de parâmetro na função que sincroniza o banco.
@@ -187,7 +187,6 @@ Também podemos verificar que a aplicação foi iniciada corretamente através d
 ![Untitled](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/9651e329-656e-4cc3-8d67-a4587d241c33)
 ![Untitled2](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/38c5d4c1-a5b2-41d6-bb7e-4efb23afd0ca)
 
-
 ### Criando um Schema com Sequelize
 
 Neste passo vamos criar o esquema para a tabela usuários de nossa aplicação. Crie um arquivo chamado **userModel.js** dentro da pasta **model** que criamos anteriormente.
@@ -197,34 +196,34 @@ const sequelize = require("sequelize"); // importamos o sequelize que gerencia a
 const db = require("../bd"); //importamos o banco no qual conectamos anteriormente
 
 const User = db.define(
-    "usuarios", //define o nome da tabela no banco de dados
-    {
-      id: {
-        type: sequelize.INTEGER.UNSIGNED,
-        primaryKey: true,//define que esta coluna é a chame primária
-        autoIncrement: true,//incrmenta o id em uma unidade evitando duplicidade de chave primaria
-        allowNull: false, //define que este atributo não pode ser vazio
-      },
-      usuario: {
-        type: sequelize.STRING,
-        allowNull: false,
-        unique: true, //define que todos os valores desta coluna deve ser único
-      },
-      password: {
-        type: sequelize.STRING,
-        allowNull: false,
-      },
-      permissao: {
-        type: sequelize.STRING,
-        allowNull: false,
-      }
+  "usuarios", //define o nome da tabela no banco de dados
+  {
+    id: {
+      type: sequelize.INTEGER.UNSIGNED,
+      primaryKey: true, //define que esta coluna é a chame primária
+      autoIncrement: true, //incrmenta o id em uma unidade evitando duplicidade de chave primaria
+      allowNull: false, //define que este atributo não pode ser vazio
     },
-    {
-      timestamps: false, //desabilita o armazenamento de datas em que foi criado e atualizado
-    }
-  );
-  
-  module.exports = User;
+    nome: {
+      type: sequelize.STRING,
+      allowNull: false,
+      unique: true, //define que todos os valores desta coluna deve ser único
+    },
+    password: {
+      type: sequelize.STRING,
+      allowNull: false,
+    },
+    permissao: {
+      type: sequelize.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    timestamps: false, //desabilita o armazenamento de datas em que foi criado e atualizado
+  }
+);
+
+module.exports = User;
 ```
 
 Para entender melhor o funcionamento e os tipos de dados acesse a documentação do sequelize no link abaixo.
@@ -243,12 +242,11 @@ Geralmente, um arquivo de controlador é responsável por conter todas as funç�
 4. **`excluiUsuario`**: Essa função lida com a operação de exclusão para remover um usuário com base no ID. Ela extrai o ID da URL da rota, usa o método **`User.destroy()`** para excluir o registro e responde com uma mensagem de sucesso ou uma mensagem de erro.
 5. **`atualizarUsuario`**: Esta função trata da operação de atualização para modificar um usuário com base no ID. Ela extrai o ID da URL da rota e os novos dados do corpo da requisição. Ela também inicia uma transação para garantir a integridade do banco de dados, atualiza o registro com os novos dados e responde com uma mensagem de sucesso ou uma mensagem de erro.
 
- Por fim, as funções são exportadas como um objeto no final do arquivo, tornando-as disponíveis para uso em outras partes do aplicativo.
+Por fim, as funções são exportadas como um objeto no final do arquivo, tornando-as disponíveis para uso em outras partes do aplicativo.
 
- ```jsx
-
+```jsx
 const User = require("../model/userModel"); //import do model de user que criamos anteiormente
-const sequelize = require("../db"); //importe do sequelize para definir controle de transações (Transaction Control Language, TCL)
+const sequelize = require("../bd"); //importe do sequelize para definir controle de transações (Transaction Control Language, TCL)
 
 //req-> paramentro que recebe a requisição
 //res ->parametro que configura a resposta da requisição
@@ -272,11 +270,11 @@ async function recuperarUsuarios(req, res) {
 
 //CREATE->POST
 async function adicionarUsuario(req, res) {
-  const { usuario, password, permissao } = req.body; //desestruturação do objeto presente no corpo da requisição
+  const { nome, password, permissao } = req.body; //desestruturação do objeto presente no corpo da requisição
   try {
     //recebe json como argumento do novo elemento que será criado e retorna elemento que foi criado
     const novoUsuario = await User.create({
-      usuario: usuario,
+      nome: nome,
       password: password,
       permissao: permissao,
     });
@@ -324,13 +322,13 @@ async function excluiUsuario(req, res) {
 //UPDATE->PUT
 async function atulizarUsuario(req, res) {
   const { id } = req.params; //desestrutura a url da rota recuperando o id do elemnto a ser atualizado
-  const { novoUsuario, novoPassword, novaPermissao } = req.body; //desestruturação do objeto presente no corpo da requisição
+  const { novoNome, novoPassword, novaPermissao } = req.body; //desestruturação do objeto presente no corpo da requisição
   const t = await sequelize.transaction(); //abre uma transação para evitar que o banco perda sua integridade
   try {
     //update é metodo do sequelize que atualiza linha da tabela
     await User.update(
       {
-        usuario: novoUsuario,
+        nome: novoNome,
         password: novoPassword,
         permissao: novaPermissao,
       },
@@ -348,7 +346,118 @@ async function atulizarUsuario(req, res) {
     res.status(500).json({ msg: "Falha ao atualizar" });
   }
 }
+
+//Exportação das funções para acesso no router
+module.exports = {
+  recuperarUsuarios,
+  adicionarUsuario,
+  findById,
+  excluiUsuario,
+  atulizarUsuario,
+};
 ```
 
+### Definindo as rotas no Router
 
+Em um aplicativo web, o roteamento desempenha um papel fundamental na definição de como as diferentes URLs são tratadas, quais ações devem ser executadas e como os recursos são servidos. Para facilitar essa funcionalidade em aplicativos Node.js, a biblioteca Express fornece um recurso chamado **Router**, que é uma parte essencial na criação de rotas e na manipulação de solicitações HTTP.
 
+**O que é um Router?**
+
+Um **Router** no contexto do Express é um módulo que permite organizar e mapear rotas em seu aplicativo Node.js. Ele funciona como um middleware que ajuda a direcionar solicitações HTTP para as funções de controle adequadas. Essas funções de controle executam a lógica de negócios necessária com base no caminho da URL e no método HTTP da solicitação.
+
+**O que um Router Define?**
+
+Um Router define como as rotas devem se comportar em relação a uma série de critérios, incluindo o método HTTP, a URL e qualquer parâmetro que possa estar presente na rota. Com um Router, você pode criar rotas para lidar com:
+
+- **GET**: Para buscar informações.
+- **POST**: Para criar novos recursos.
+- **PUT**: Para atualizar recursos existentes.
+- **DELETE**: Para excluir recursos.
+
+**Rotas Dinâmicas**
+
+No Express, você pode definir rotas dinâmicas usando notações especiais, como **`:id`**. Essa notação indica que um valor variável será capturado a partir da URL e disponibilizado como um parâmetro na função de controle associada. Por exemplo, a rota **`/usuarios/:id`** permitirá que você acesse o valor **`id`** na função de controle quando um URL como **`/usuarios/123`** for acessado, onde **`123`** é o valor do parâmetro **`id`**.
+
+A rota **`/produtos/:categoria?`** no Express define um parâmetro chamado **`categoria`** como opcional, permitindo que os clientes acessem a rota com ou sem um valor para **`categoria`**. Quando um valor é fornecido, ele é acessível na função de controle através de **`req.params.categoria`**, mas se nenhum valor for especificado na URL, o Express considera o valor padrão como "todos". Isso oferece flexibilidade ao usuário, tornando possível listar produtos de uma categoria específica quando desejado, ou todos os produtos quando a categoria não é especificada.
+
+Agora podemos criar no diretório router o arquivo **userRouter.js** . Neste arquivo vamos mapear as funções do controller para as rotas e métodos HTTP.
+
+1. As funções do controlador são importadas no início do arquivo **`routes.js`**.
+2. O módulo Express é importado para criar e configurar o objeto **`Router`**.
+3. Cada rota é definida usando o método correspondente (**`get`**, **`post`**, **`delete`**, **`put`**) no objeto **`routes`**. A função do controlador correspondente é associada a cada rota.
+4. Nas rotas que exigem um parâmetro, como **`/usuarios/:id`**, a notação **`:id`** indica que esse parâmetro será parte da URL da requisição. Por exemplo, uma solicitação para **`/usuarios/123`** fornecerá o valor **`123`** como o parâmetro **`id`**.
+5. Finalmente, o objeto **`routes`** é exportado para que ele possa ser utilizado no arquivo principal (geralmente **`server.js`**) para configuração do servidor Express.
+
+```js
+const express = require("express"); //importação do express
+const routes = express.Router(); //importação do Router da biblioeca express
+
+//importação das funções do controller que serão mapeadas para as rotas
+const {
+  recuperarUsuarios,
+  adicionarUsuario,
+  findById,
+  excluiUsuario,
+  atulizarUsuario,
+} = require("../controller/userController");
+
+//mapeamento das funções do controller para seus respectivos métodos HTTP e rotas
+routes.get("/usuarios", recuperarUsuarios);
+routes.post("/usuario", adicionarUsuario);
+routes.get("/usuario/:id", findById); //notação :id indica que o parametro id sera informado na url da requisição
+routes.delete("/usuario/:id", excluiUsuario); //notação :id indica que o parametro id sera informado na url da requisição
+routes.put("/usuario/:id", atulizarUsuario); //notação :id indica que o parametro id sera informado na url da requisição
+
+//exportamos o objeto routes
+module.exports = routes;
+```
+
+### Configurando as rotas no aplicativo principal
+
+Para concluir esta seção do guia, vamos integrar as rotas que definimos no router ao servidor, tornando-as finalmente acessíveis para uso por aplicativos externos.
+
+No arquivo **`server.js`**, realize a importação do objeto **`routes`** e, em seguida, passe esse objeto como argumento para a função **`app.use()`**. Isso permitirá a integração das rotas definidas no arquivo de rotas com o aplicativo principal.
+
+```jsx
+const express = require("express");
+const cors = require("cors");
+const morgan = require("morgan");
+const bd = require("./bd");
+
+//importamos as rotas do usuário
+const userRoutes = require("./router/userRouter");
+
+const app = express(); //inicia o express
+app.use(morgan("dev")); //imprime os logs das operações durante o desenvolvimento
+app.use(cors()); //libera o cross origin
+app.use(express.json()); // configura a API para receber e enviar json.
+app.use(userRoutes); // torna as rotas disponíveis para uso
+
+//rota padrão na qual podemos verificar se o servidor está disponível
+app.get("/", async (req, res) => {
+  res.status(200).json({ msg: "Api ok!" });
+});
+
+//inicia o servidor através de uma self-invoked function
+(async () => {
+  try {
+    await bd.sync({ force: false }); // sincroniza o banco
+    console.log("Banco conectado!");
+    app.listen(3000, () => console.log("Service is live!")); //iniciar efetivamente o servidor na porta 3000
+  } catch (err) {
+    console.log(err);
+  }
+})();
+```
+
+Agora execute novamente a aplicação através do comando npm start . Observe que o sequelize se encarregara da criação da tabela usuarios no banco.
+
+![Alt text](<Captura de Tela 2023-10-14 às 23.34.27.png>)
+
+Neste momento a API já está pronta para receber requisições.
+
+## Realizando requisições via PostMan
+
+Podemos utilizar o Postman, uma ferramenta poderosa para testar e documentar APIs. O Postman oferece uma interface amigável que permite criar, enviar e analisar requisições HTTP de maneira eficaz.
+
+Site para download do [Postman](https://www.postman.com)

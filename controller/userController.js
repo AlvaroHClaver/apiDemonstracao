@@ -1,5 +1,5 @@
 const User = require("../model/userModel"); //import do model de user que criamos anteiormente
-const sequelize = require("../db"); //importe do sequelize para definir controle de transações (Transaction Control Language, TCL)
+const sequelize = require("../bd"); //importe do sequelize para definir controle de transações (Transaction Control Language, TCL)
 
 //req-> paramentro que recebe a requisição
 //res ->parametro que configura a resposta da requisição
@@ -23,11 +23,11 @@ async function recuperarUsuarios(req, res) {
 
 //CREATE->POST
 async function adicionarUsuario(req, res) {
-  const { usuario, password, permissao } = req.body; //desestruturação do objeto presente no corpo da requisição
+  const { nome, password, permissao } = req.body; //desestruturação do objeto presente no corpo da requisição
   try {
     //recebe json como argumento do novo elemento que será criado e retorna elemento que foi criado
     const novoUsuario = await User.create({
-      usuario: usuario,
+      nome: nome,
       password: password,
       permissao: permissao,
     });
@@ -75,13 +75,13 @@ async function excluiUsuario(req, res) {
 //UPDATE->PUT
 async function atulizarUsuario(req, res) {
   const { id } = req.params; //desestrutura a url da rota recuperando o id do elemnto a ser atualizado
-  const { novoUsuario, novoPassword, novaPermissao } = req.body; //desestruturação do objeto presente no corpo da requisição
+  const { novoNome, novoPassword, novaPermissao } = req.body; //desestruturação do objeto presente no corpo da requisição
   const t = await sequelize.transaction(); //abre uma transação para evitar que o banco perda sua integridade
   try {
     //update é metodo do sequelize que atualiza linha da tabela
-    await User.update(
+    const resp = await User.update(
       {
-        usuario: novoUsuario,
+        nome: novoNome,
         password: novoPassword,
         permissao: novaPermissao,
       },
@@ -91,6 +91,7 @@ async function atulizarUsuario(req, res) {
       }
     );
     // Confirme a transação
+    console.log(resp);
     await t.commit();
     res.status(200).json({ msg: "Usuário atualizado!" });
   } catch (err) {
@@ -99,3 +100,12 @@ async function atulizarUsuario(req, res) {
     res.status(500).json({ msg: "Falha ao atualizar" });
   }
 }
+
+//Exportação das funções para acesso no router
+module.exports = {
+  recuperarUsuarios,
+  adicionarUsuario,
+  findById,
+  excluiUsuario,
+  atulizarUsuario,
+};
