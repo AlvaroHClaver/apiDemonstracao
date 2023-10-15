@@ -468,37 +468,39 @@ Site para download do [Postman](https://www.postman.com)
 
 Requisição GET de todos os usuários cadastrados. Como acabamos de criar o banco ainda não existe nenhum usuário.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/153a68f8-ccd7-480b-ad9b-703080cd3989/Untitled.png)
+![Captura de Tela 2023-10-15 às 11 35 27](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/fe3f16ab-b686-47b5-9dd9-fa2968be8461)
 
 Agora vamos criar um usuário através do método POST passando um JSON no corpo da requisição. Observe também que não foi necessário informar um id uma vez que o sequelize gerencia as chaves primárias na tabela.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/6209e621-36f2-4664-b5bf-40eeb2535ae5/Untitled.png)
+
+![Captura de Tela 2023-10-15 às 11 37 12](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/dee19669-8cdd-4865-8265-e55823564974)
 
 Podemos agora adicionar mais um usuário.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/691703f8-260d-4432-a00b-32e234051c31/Untitled.png)
+![Captura de Tela 2023-10-15 às 11 40 18](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/364e72ef-9878-4306-9976-f12327ffa4b2)
 
 Agora podemos recuperar todos os usuários no banco através do método GET. Observe que é retornado um array de objetos.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/df68a885-2fe4-4262-a0f4-e668fa183974/Untitled.png)
+![Captura de Tela 2023-10-15 às 11 41 09](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/23697992-74ef-41e7-8b36-fa064b330844)
 
 Podemos também buscar por um usuário especifico informando seu is na url de requisição.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/6d452ffb-baf4-4749-a43e-b7b95e1bbc67/Untitled.png)
+![Captura de Tela 2023-10-15 às 11 42 23](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/7ac16d2a-ab0d-4f45-b13c-36160846bccb)
 
 Vamos agora editar um usuário. Podemos tanto informar somente um parâmetro como todos os outros no corpo da requisição.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/10aa1489-6664-4ba6-9aa7-d7130a3a383d/Untitled.png)
+![Captura de Tela 2023-10-15 às 11 45 25](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/6a40f81d-8c6b-4792-ad50-e5b937462ab8)
 
 Usuário Alvaro atualizado.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/cea1cac8-b1f0-4813-aba0-022baa45a9be/Untitled.png)
+![Captura de Tela 2023-10-15 às 11 45 55](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/a387058c-da92-46c9-80b3-0099faec44e1)
 
 Agora vamos excluir um usuário. Para isso precisamos informar o id do usuário que queremos excluir.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/43b2dfd2-8e44-4247-944c-a7a965c923f7/Untitled.png)
+![Captura de Tela 2023-10-15 às 11 49 43](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/51a35925-73b2-432c-9b2d-e0c93bc54439)
 
 Lista de usuários atualizada.
+
+![Captura de Tela 2023-10-15 às 11 51 57](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/9dae2195-d5cb-49a0-9eef-530ad10b667a)
 
 ### CORS (Cross-Origin Resource Sharing)
 
@@ -529,7 +531,8 @@ Existem dois tipos gerais de token:
 2. **Carga Útil (Payload)**: A segunda parte do JWT é a carga útil, que contém as informações reivindicadas sobre o usuário ou entidade que está autenticando. Essas informações são chamadas de "claims" e podem incluir dados como o ID do usuário, papéis ou funções, informações de expiração e muito mais. Existem três tipos de claims: reivindicações registradas, reivindicações públicas e reivindicações privadas.
 3. **Assinatura (Signature)**: A terceira parte do JWT é a assinatura, que é usada para verificar a integridade do token e garantir que ele não tenha sido adulterado durante a transmissão. A assinatura é gerada usando a chave secreta do servidor de autenticação e os dados do cabeçalho e da carga útil. Quando o receptor do token recebe o JWT, ele verifica a assinatura usando a chave pública do servidor de autenticação. Se a assinatura corresponder, isso indica que o token é válido e não foi modificado.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/b98a78db-b09a-4e09-8e9a-9a092094342d/Untitled.png)
+![Captura de Tela 2023-10-15 às 12 57 42](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/b82fa7ca-3d9b-4d56-8723-af42857718fd)
+
 
 **Link para o JWT Debugger:**
 
