@@ -6,13 +6,13 @@ Uma Interface de Programação de Aplicativos para a web, ou simplesmente APIs, 
 
 As APIs  são o meio de caminho entre o banco de dados e o cliente em sistemas de software. Ela recebe as solicitações do cliente, executa a lógica de negócios, como autenticação e autorização, e traduz essas solicitações em comandos compreensíveis para o banco de dados. Posteriormente, a API recebe as respostas do banco de dados e as retorna de forma estruturada ao cliente. Além de facilitar a comunicação, a API oferece benefícios essenciais, como segurança, abstração dos detalhes técnicos do banco de dados e flexibilidade para realizar alterações no sistema sem afetar diretamente o cliente.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/a55f46b2-a30e-4bc1-9e31-ed54a81d01f4/Untitled.png)
+![image](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/578e089d-b208-4f69-ba46-e44bfe3d72d0)
 
 ## Protocolo HTTP
 
 O Protocolo HTTP (Hypertext Transfer Protocol) é uma linguagem padronizada que permite a comunicação entre clientes e servidores na web. Ele opera sobre o protocolo TCP (Transmission Control Protocol) e define como as mensagens são formatadas e transmitidas, facilitando a recuperação de recursos, como páginas da web e dados, por meio de URLs. As solicitações HTTP são geralmente compostas por métodos, como GET, POST, PUT e DELETE, que determinam a ação a ser realizada no servidor, e os cabeçalhos, que contêm informações adicionais sobre a solicitação. As respostas do servidor incluem códigos de status para indicar o sucesso ou a falha da solicitação e o conteúdo desejado. O HTTP é a base da World Wide Web e é amplamente utilizado em APIs, pois oferece uma estrutura consistente e eficiente para a comunicação entre sistemas distribuídos na internet. Isso permite que aplicativos e serviços interajam de maneira previsível, o que é fundamental para a integração e a interoperabilidade em um ambiente web global.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/323e8996-a1d0-4ac7-84fb-fbc5e7a36030/Untitled.png)
+![image](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/f7335b0a-5b9e-4ae0-a09e-239f83f50b1e)
 
 ## CRUD
 
@@ -30,7 +30,7 @@ As operações CRUD (Create, Read, Update, Delete) desempenham um papel central 
 3. **PUT ou PATCH (Update)**: O método PUT (ou em alguns casos o PATCH) é empregado para atualizar um recurso existente. Isso reflete a operação de atualização (Update) em CRUD. 
 4. **DELETE (Delete)**: O método DELETE é usado para remover um recurso. Essa ação se alinha com a operação de exclusão (Delete) em CRUD. 
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/54a5e7ca-05ea-47ff-b72b-5bb9f2f8238c/Untitled.png)
+![image](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/911ccae1-f07b-4734-8f9a-69eb6fe3036d)
 
 ### Links Uteis
 
@@ -40,7 +40,7 @@ As operações CRUD (Create, Read, Update, Delete) desempenham um papel central 
 
 ORM (Object-Relational Mapping) e ODM (Object-Document Mapping) são padrões de mapeamento que facilitam a interação entre sistemas de software  e bancos de dados relacionais (no caso do ORM) ou bancos de dados NoSQL orientados a documentos (no caso do ODM). A principal motivação para o uso de objetos de mapeamento é a abstração do banco de dados permitindo interagir com o banco de dados sem precisar escrever SQL diretamente. Outra motivação é que o código ORM é frequentemente independente do banco de dados subjacente, permitindo uma mudança mais fácil de um banco de dados para outro.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/986aa8f3-36ca-44e3-81ae-ea6de53a147a/Untitled.png)
+![image](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/368470c6-6739-452e-80bf-831916ff1a73)
 
 ### Leitura complementar
 
@@ -64,7 +64,7 @@ Configure também um comando de inicialização da aplicação atrelado ao nodem
 
 Ao final do processo você deve ter a seguinte estrutura de arquivo e package.json.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/974bbbb1-6459-4dca-b5c9-8aa56c7fa994/Untitled.png)
+<img width="249" alt="Untitled" src="https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/e2ee327a-b610-4f9f-8374-09289bab6a02">
 
 ```jsx
 {
@@ -184,9 +184,9 @@ Service is live!
 
 Também podemos verificar que a aplicação foi iniciada corretamente através da rota que definimos para esta finalidade no server. Em seu navegador use a url [http://localhot:3000](http://localhot:3000/) e verifique se a mensagem {msg:Api ok!} foi exibida.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/c3391842-3dc8-4e67-96c9-de944e362e15/Untitled.png)
+![Untitled](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/9651e329-656e-4cc3-8d67-a4587d241c33)
+![Untitled2](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/38c5d4c1-a5b2-41d6-bb7e-4efb23afd0ca)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/2751de96-eb95-4920-8069-dc201c9cd919/Untitled.png)
 
 ### Criando um Schema com Sequelize
 
@@ -234,3 +234,121 @@ Para entender melhor o funcionamento e os tipos de dados acesse a documentação
 ### Criando o CRUD da API através de funções controller
 
 Agora vamos criar as funções que são responsáveis por receber as requisições processa-las recuperando as informações do banco de dados e retornar um json como resposta para o cliente. Crie um arquivo **userController.js** na pasta **controller**.
+
+Geralmente, um arquivo de controlador é responsável por conter todas as funções que manipulam as operações de CRUD (Create, Read, Update, Delete) para um determinado modelo de dados em um aplicativo. Neste exemplo, o foco está em operações de usuário usando o modelo **`User`**.
+
+1. **`recuperarUsuarios`**: Essa função lida com a operação de leitura para recuperar todos os usuários da tabela. Ela usa o método **`User.findAll()`** para buscar todos os registros e responde com os usuários encontrados ou uma mensagem de erro.
+2. **`adicionarUsuario`**: Essa função lida com a operação de criação para adicionar um novo usuário à tabela. Ela desestrutura os dados do corpo da requisição, usa o método **`User.create()`** para criar um novo registro e responde com o novo usuário ou uma mensagem de erro.
+3. **`findById`**: Esta função trata da operação de leitura para encontrar um usuário específico com base no ID. Ela extrai o ID da URL da rota, usa o método **`User.findByPk(id)`** para buscar o registro correspondente e responde com o usuário encontrado ou uma mensagem de erro.
+4. **`excluiUsuario`**: Essa função lida com a operação de exclusão para remover um usuário com base no ID. Ela extrai o ID da URL da rota, usa o método **`User.destroy()`** para excluir o registro e responde com uma mensagem de sucesso ou uma mensagem de erro.
+5. **`atualizarUsuario`**: Esta função trata da operação de atualização para modificar um usuário com base no ID. Ela extrai o ID da URL da rota e os novos dados do corpo da requisição. Ela também inicia uma transação para garantir a integridade do banco de dados, atualiza o registro com os novos dados e responde com uma mensagem de sucesso ou uma mensagem de erro.
+
+ Por fim, as funções são exportadas como um objeto no final do arquivo, tornando-as disponíveis para uso em outras partes do aplicativo.
+
+ ```jsx
+
+const User = require("../model/userModel"); //import do model de user que criamos anteiormente
+const sequelize = require("../db"); //importe do sequelize para definir controle de transações (Transaction Control Language, TCL)
+
+//req-> paramentro que recebe a requisição
+//res ->parametro que configura a resposta da requisição
+
+//READ->GET
+async function recuperarUsuarios(req, res) {
+  try {
+    const usuarios = await User.findAll(); //método findAll do sequelize retorna um sequelize object com todos os usuários do banco
+    //verifica se usuarios for vazio retorna 404 not found como resposta
+    if (usuarios.length === 0) {
+      res.status(404).json({ msg: "Não foram encontados usuários" });
+      return;
+    }
+    res.status(200).json(usuarios); //se a busca for bem sucedida retorna 200 e um array que contém json com as informações dos usuários
+  } catch (err) {
+    //tratamento de excessões
+    console.log(err);
+    res.status(500).json({ msg: "Falha ao recuperar usuários!" }); //caso algum erro ocorra retorna internal server error 500 junto da mensagem de erro
+  }
+}
+
+//CREATE->POST
+async function adicionarUsuario(req, res) {
+  const { usuario, password, permissao } = req.body; //desestruturação do objeto presente no corpo da requisição
+  try {
+    //recebe json como argumento do novo elemento que será criado e retorna elemento que foi criado
+    const novoUsuario = await User.create({
+      usuario: usuario,
+      password: password,
+      permissao: permissao,
+    });
+    res.status(201).json(novoUsuario); //retorna para o cliente código 201 created e o json do novo elemento
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "Falha ao criar usuário!" }); //retorna internal server error 500 caso ocorra algum erro durante a criação
+  }
+}
+
+//READ->GET
+
+async function findById(req, res) {
+  const { id } = req.params; //desestrutura a url da rota recuperando o id
+  try {
+    const usuario = await User.findByPk(id); // findByPk é um método do sequelize que pesquisa e retorna um objeto que corresponde aquela chave primária
+    if (!usuario) {
+      //verifica se usuario for vazio retorna 404 not found como resposta
+      res.status(404).json({ msg: "Usuario não encontrado" });
+      return;
+    }
+    res.status(200).json(usuario); //se a busca for bem sucedida retorna 200 e um json com as informações do usuário
+  } catch (err) {
+    res.status(500).json({ msg: "Falha ao criar usuário!" }); //retorna internal server error 500 caso ocorra algum erro durante a operação
+  }
+}
+
+//DELETE->DELETE
+async function excluiUsuario(req, res) {
+  const { id } = req.params; //desestrutura a url da rota recuperando o id do elemnto a ser excluido
+  try {
+    //exclui a linha da tabela através do id passado na uri através do método destroy do sequelize
+    await User.destroy({
+      where: {
+        id: id,
+      },
+    });
+    res.status(200).json({ msg: "Usuário excluido!" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "Falha ao criar usuário!" }); //retorna internal server error 500 caso ocorra algum erro durante a operação
+  }
+}
+
+//UPDATE->PUT
+async function atulizarUsuario(req, res) {
+  const { id } = req.params; //desestrutura a url da rota recuperando o id do elemnto a ser atualizado
+  const { novoUsuario, novoPassword, novaPermissao } = req.body; //desestruturação do objeto presente no corpo da requisição
+  const t = await sequelize.transaction(); //abre uma transação para evitar que o banco perda sua integridade
+  try {
+    //update é metodo do sequelize que atualiza linha da tabela
+    await User.update(
+      {
+        usuario: novoUsuario,
+        password: novoPassword,
+        permissao: novaPermissao,
+      },
+      {
+        where: { id: id },
+        transaction: t, // Associa a transação à atualização
+      }
+    );
+    // Confirme a transação
+    await t.commit();
+    res.status(200).json({ msg: "Usuário atualizado!" });
+  } catch (err) {
+    // Em caso de erro, reverta a transação
+    await t.rollback();
+    res.status(500).json({ msg: "Falha ao atualizar" });
+  }
+}
+```
+
+
+
