@@ -452,7 +452,8 @@ app.get("/", async (req, res) => {
 
 Agora execute novamente a aplicação através do comando npm start . Observe que o sequelize se encarregara da criação da tabela usuarios no banco.
 
-![Alt text](<Captura de Tela 2023-10-14 às 23.34.27.png>)
+![Captura de Tela 2023-10-14 às 23 34 27](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/931cf08f-4786-4e41-abe1-f49e99c51846)
+
 
 Neste momento a API já está pronta para receber requisições.
 
