@@ -230,6 +230,10 @@ Para entender melhor o funcionamento e os tipos de dados acesse a documentação
 
 [Getting Started | Sequelize](https://sequelize.org/docs/v6/getting-started/)
 
+O sequelize também permite definir relacionamento entre as tabelas.
+
+[Relacionamentos](https://www.youtube.com/watch?v=vJZ_kh7G8-k)
+
 ### Criando o CRUD da API através de funções controller
 
 Agora vamos criar as funções que são responsáveis por receber as requisições processa-las recuperando as informações do banco de dados e retornar um json como resposta para o cliente. Crie um arquivo **userController.js** na pasta **controller**.
@@ -454,7 +458,6 @@ Agora execute novamente a aplicação através do comando npm start . Observe qu
 
 ![Captura de Tela 2023-10-14 às 23 34 27](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/931cf08f-4786-4e41-abe1-f49e99c51846)
 
-
 Neste momento a API já está pronta para receber requisições.
 
 ## Realizando requisições via PostMan
@@ -462,3 +465,93 @@ Neste momento a API já está pronta para receber requisições.
 Podemos utilizar o Postman, uma ferramenta poderosa para testar e documentar APIs. O Postman oferece uma interface amigável que permite criar, enviar e analisar requisições HTTP de maneira eficaz.
 
 Site para download do [Postman](https://www.postman.com)
+
+Requisição GET de todos os usuários cadastrados. Como acabamos de criar o banco ainda não existe nenhum usuário.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/153a68f8-ccd7-480b-ad9b-703080cd3989/Untitled.png)
+
+Agora vamos criar um usuário através do método POST passando um JSON no corpo da requisição. Observe também que não foi necessário informar um id uma vez que o sequelize gerencia as chaves primárias na tabela.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/6209e621-36f2-4664-b5bf-40eeb2535ae5/Untitled.png)
+
+Podemos agora adicionar mais um usuário.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/691703f8-260d-4432-a00b-32e234051c31/Untitled.png)
+
+Agora podemos recuperar todos os usuários no banco através do método GET. Observe que é retornado um array de objetos.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/df68a885-2fe4-4262-a0f4-e668fa183974/Untitled.png)
+
+Podemos também buscar por um usuário especifico informando seu is na url de requisição.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/6d452ffb-baf4-4749-a43e-b7b95e1bbc67/Untitled.png)
+
+Vamos agora editar um usuário. Podemos tanto informar somente um parâmetro como todos os outros no corpo da requisição.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/10aa1489-6664-4ba6-9aa7-d7130a3a383d/Untitled.png)
+
+Usuário Alvaro atualizado.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/cea1cac8-b1f0-4813-aba0-022baa45a9be/Untitled.png)
+
+Agora vamos excluir um usuário. Para isso precisamos informar o id do usuário que queremos excluir.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/43b2dfd2-8e44-4247-944c-a7a965c923f7/Untitled.png)
+
+Lista de usuários atualizada.
+
+### CORS (Cross-Origin Resource Sharing)
+
+**Cross-Origin Resource Sharing (CORS)**, que significa "Compartilhamento de Recursos de Origens Cruzadas", é um mecanismo de segurança em navegadores da web que controla as solicitações HTTP de um domínio (origem) para outro domínio diferente. O CORS é uma política que visa proteger a segurança dos dados em aplicações web, impedindo que um site malicioso acesse recursos em um servidor de outro domínio.
+
+Quando um navegador faz uma solicitação HTTP a um servidor em um domínio diferente (origem), o servidor deve incluir cabeçalhos CORS apropriados em sua resposta para permitir ou negar a solicitação. Esses cabeçalhos especificam quais origens têm permissão para acessar os recursos do servidor e quais tipos de solicitações são permitidos (por exemplo, GET, POST, PUT, DELETE).
+
+O CORS é uma parte essencial da segurança da web moderna, pois ajuda a evitar problemas de segurança, como ataques de falsificação de solicitações entre sites (CSRF) e ataques de falsificação de solicitação de origem cruzada (XSRF). Ele permite que aplicativos web em um domínio acessem recursos em outro domínio de forma segura, desde que o servidor do domínio de destino tenha configurado as políticas de CORS apropriadas.
+
+O CORS é implementado no lado do servidor e pode ser configurado para permitir ou restringir o acesso com base em origens específicas, métodos HTTP e outros cabeçalhos personalizados. Isso ajuda a manter a integridade e a segurança dos dados em ambientes web complexos, onde várias partes podem interagir entre si.
+
+Mais sobre CORS
+
+[CORS](https://www.freecodecamp.org/portuguese/news/o-cabecalho-access-control-allow-origin-explicado-com-um-exemplo-de-cors/)
+
+## Segurança e Autenticação
+
+A autenticação de APIs desempenha um papel crucial na segurança e na integridade dos sistemas modernos, e uma abordagem amplamente adotada para garantir a autenticidade e a autorização de requisições é o uso do **JSON Web Tokens (JWT)**. O JWT é um padrão de token seguro e eficiente que se tornou uma escolha popular para autenticação e autorização em serviços web e aplicativos. Neste artigo, exploraremos em detalhes o funcionamento e a implementação da autenticação de APIs usando JWT, abordando conceitos fundamentais, fluxos de trabalho e melhores práticas para garantir a proteção das suas APIs e a segurança dos seus dados.
+
+Existem dois tipos gerais de token:
+
+- **Token Transparente**: Um token transparente contém informações diretamente legíveis em sua estrutura, geralmente na forma de um JWT (JSON Web Token). Isso significa que todas as informações necessárias para verificar a autenticidade e autorização estão contidas no próprio token.
+- **Token Opaco**: Um token opaco, em contraste com um token transparente, é um tipo de token que não contém informações diretamente legíveis em sua estrutura. Em vez disso, ele é uma referência ou identificador que aponta para informações armazenadas de forma segura no servidor de autenticação.
+
+### As três partes de um token JWT
+
+1. **Cabeçalho (Header)**: A primeira parte de um JWT é o cabeçalho, que é um objeto JSON que descreve o tipo do token e o algoritmo de criptografia utilizado para assiná-lo. Por exemplo, o cabeçalho pode indicar que o token é um JWT e que a assinatura foi gerada usando o algoritmo HMAC SHA256.
+2. **Carga Útil (Payload)**: A segunda parte do JWT é a carga útil, que contém as informações reivindicadas sobre o usuário ou entidade que está autenticando. Essas informações são chamadas de "claims" e podem incluir dados como o ID do usuário, papéis ou funções, informações de expiração e muito mais. Existem três tipos de claims: reivindicações registradas, reivindicações públicas e reivindicações privadas.
+3. **Assinatura (Signature)**: A terceira parte do JWT é a assinatura, que é usada para verificar a integridade do token e garantir que ele não tenha sido adulterado durante a transmissão. A assinatura é gerada usando a chave secreta do servidor de autenticação e os dados do cabeçalho e da carga útil. Quando o receptor do token recebe o JWT, ele verifica a assinatura usando a chave pública do servidor de autenticação. Se a assinatura corresponder, isso indica que o token é válido e não foi modificado.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/b98a78db-b09a-4e09-8e9a-9a092094342d/Untitled.png)
+
+**Link para o JWT Debugger:**
+
+[JWT.IO](https://jwt.io)
+
+Documentação Auth 0:
+
+[JWT.IO - JSON Web Tokens Introduction](https://jwt.io/introduction)
+
+Geralmente, os tokens são incluídos no cabeçalho HTTP da solicitação, especificamente no cabeçalho "Authorization".
+
+**Fluxo geral do uso de um Token JWT em uma solicitação HTTP:**
+
+1. **Obtenção do Token**: Antes de enviar uma solicitação para o servidor de recursos, o cliente deve obter um token de autenticação válido do servidor de autenticação. Isso geralmente envolve um processo de autenticação, como login ou autenticação de terceiros (por exemplo, usando redes sociais).
+2. **Inclusão no Cabeçalho Authorization**: O token é então incluído no cabeçalho HTTP da solicitação. Para isso, o cliente adiciona um cabeçalho "Authorization" à solicitação. O valor desse cabeçalho é composto por um tipo de autenticação (como "Bearer") seguido de um espaço e, em seguida, o token em si.
+
+   Exemplo:
+
+   `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5`
+
+3. **Envio da Solicitação**: A solicitação, incluindo o cabeçalho "Authorization", é então enviada para o servidor de recursos.
+4. **Validação do Token**: No servidor de recursos, o token é extraído do cabeçalho "Authorization". O servidor de recursos, em seguida, valida o token para garantir que seja válido, não tenha expirado e que a solicitação tenha permissão para acessar os recursos desejados.
+5. **Processamento da Solicitação**: Se o token for válido e autorizado, o servidor de recursos processará a solicitação e responderá de acordo.
+
+O uso do cabeçalho "Authorization" é uma prática padronizada e segura para autenticar solicitações HTTP em APIs. Além disso, essa abordagem facilita a integração com bibliotecas e frameworks de desenvolvimento, uma vez que muitos deles oferecem suporte nativo para a manipulação de tokens no cabeçalho "Authorization".
