@@ -558,3 +558,458 @@ Geralmente, os tokens são incluídos no cabeçalho HTTP da solicitação, espec
 5. **Processamento da Solicitação**: Se o token for válido e autorizado, o servidor de recursos processará a solicitação e responderá de acordo.
 
 O uso do cabeçalho "Authorization" é uma prática padronizada e segura para autenticar solicitações HTTP em APIs. Além disso, essa abordagem facilita a integração com bibliotecas e frameworks de desenvolvimento, uma vez que muitos deles oferecem suporte nativo para a manipulação de tokens no cabeçalho "Authorization".
+
+## Implementação de token ao projeto
+
+A primeira melhoria necessária para o projeto é a implementação da **criptografia de senhas**, fazendo com que elas sejam armazenadas no banco de dados como hashes em vez de texto legível. Isso garante uma camada essencial de segurança aos dados confidenciais dos usuários.
+
+Para isso vamos instalar a biblioteca **bcrypt** através do comando `npm i bcrypt`. Agora podemos criar um novo diretório denominado **service** e dentro deste diretório criar um arquivo denominado **authService.js**. Neste arquivo vamos criar uma função denominada hashPassword que será responsável por produzir a hash que iremos armazenar no banco.
+
+1. **Importação do Bcrypt**: Iniciamos importando a biblioteca **`bcrypt`**, que é uma biblioteca amplamente utilizada para realizar o hashing seguro de senhas. O **`bcrypt`** é especialmente projetado para proteger senhas contra ataques de força bruta e dicionário, tornando difícil a recuperação da senha original a partir do hash.
+2. **hashPassword Function**: Esta é a função assíncrona que aceita a senha do usuário como entrada e retorna a senha hasheada. Ela segue os seguintes passos:
+
+   a. **Geração de um Sal (Salt)**: O sal é uma sequência aleatória de bytes que é gerada usando o método **`genSalt`** do **`bcrypt`**. O sal é uma parte crucial do processo de hashing seguro, uma vez que torna as senhas hasheadas únicas, mesmo que as senhas originais sejam idênticas. O número **`12`** passado como argumento para o **`genSalt`** define o custo da geração do sal, ou seja, a quantidade de trabalho necessária para gerar o sal.
+
+   b. **Geração da Hash da Senha**: Em seguida, vamos utilizar o método **`hash`** do **`bcrypt`** para gerar o hash da senha, recebendo como argumentos a senha original e o sal gerado anteriormente. O resultado é a senha hasheada.
+
+   c. **Retorno do Hashed Password**: A função retorna a senha hasheada, que pode ser armazenada no banco de dados de forma segura.
+
+3. **Exportação da Função**: A função **`hashPassword`** é exportada como um módulo, tornando-a disponível para ser usada em outros módulos ou partes do projeto.
+
+O uso de um sal (salt) é essencial para a segurança do processo de hashing de senhas. Um sal é uma sequência aleatória que é única para cada senha. Isso significa que, mesmo que dois usuários tenham senhas idênticas, seus hashes serão diferentes devido ao uso de sais diferentes. Isso torna muito mais difícil para atacantes usar tabelas de hash pré-computadas (rainbow tables) ou realizar ataques de força bruta. Além disso, a geração de um sal adiciona uma camada extra de aleatoriedade ao processo de hashing, o que é fundamental para a segurança das senhas armazenadas no banco de dados.
+
+```jsx
+//importação do bcrypt
+const bcrypt = require("bcrypt");
+
+//gera hash a a partir do password fo usuário
+async function hashPassword(password) {
+  const salt = await bcrypt.genSalt(12); // método do bcrypt que produz um sal que será adicionado a hash
+  const hashedPassword = await bcrypt.hash(password, salt); //função do bcrypt que gera a hash recebe como parametros a senha a ser hashada e um sal
+  return hashedPassword;
+}
+
+//exportação das funções
+module.exports = { hashPassword };
+```
+
+Podemos agora modificar a função adicionarUsuario em usuarioController.js para aramzenar a senha como hash no bd. Para isso vamos fazer o import da função hashPassword do authService no controller e gerar uma hash antes de armazenar a senha no banco.
+
+```jsx
+const { hashPassword } = require("../service/authService");
+
+//CREATE->POST
+async function adicionarUsuario(req, res) {
+  const { nome, password, permissao } = req.body; //desestruturação do objeto presente no corpo da requisição
+  try {
+    const hash = await hashPassword(password); //produz a hash a partir da senha informada
+    //recebe json como argumento do novo elemento que será criado e retorna elemento que foi criado
+    const novoUsuario = await User.create({
+      nome: nome,
+      password: hash, // recebe e armazena hash +sal no banco
+      permissao: permissao,
+    });
+    res.status(201).json(novoUsuario); //retorna para o cliente código 201 created e o json do novo elemento
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "Falha ao criar usuário!" }); //retorna internal server error 500 caso ocorra algum erro durante a criação
+  }
+}
+```
+
+Agora quando adicionamos um novo usuário a senha será armazenada como uma hash.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/061dd6f6-6c7c-4aca-be7c-c2e0c96718d6/Untitled.png)
+
+### Gerando os tokens
+
+Agora vamos criar as funções que autenticam o usuário e entregam acces e refresh token.
+
+- **Token de Acesso (Acces Token):**
+  - O token de acesso, frequentemente chamado de "access token", é um token de curta duração que concede permissão a um cliente (geralmente um aplicativo ou serviço) para acessar recursos protegidos em um servidor. Esses recursos podem incluir dados de usuário, serviços da API, ou outras informações restritas.
+  - A principal razão para usar um token de acesso, como o próprio nome sugere, é permitir o acesso a recursos restritos sem exigir que o usuário insira suas credenciais (como usuário e senha) a cada solicitação. Isso melhora a experiência do usuário e evita o compartilhamento de credenciais com aplicativos de terceiros.
+- **Token de Atualização (Refresh Token):**
+  - O token de atualização, conhecido como "refresh token," é um token de longa duração usado para obter um novo token de acesso (access token) após o token de acesso expirar. Os tokens de acesso têm um tempo de vida curto por questões de segurança, mas os tokens de atualização podem ser usados para obter tokens de acesso novos e válidos sem a necessidade de autenticação repetida.
+  - O uso de tokens de atualização é crucial para manter a segurança e a praticidade. Como os tokens de acesso têm vida curta, um token de atualização é usado para obter um novo token de acesso sem requerer que o usuário faça login novamente. Isso permite que o cliente mantenha o acesso contínuo aos recursos, enquanto os tokens de atualização são armazenados de forma segura, em um local protegido.
+
+Para gerar os tokens de maneira simples vamos importar a biblioteca jsonwebtoken através do comando `npm i jsonwebtoken` . Agora vamos adicionar as funções **generateAccessToken** e **generateRefreshToken** no arquivo **authService.js** da seguinte forma:
+
+1. **Importação de Módulos**:
+   - Importando os módulos `jsonwebtoken` e `dotenv`.
+   - **jsonwebtoken** é uma biblioteca usada para criar tokens JWT (JSON Web Tokens), que são frequentemente usados para autenticação e autorização em sistemas web.
+   - **dotenv** é usado para carregar variáveis de ambiente a partir de um arquivo `.env`, que é uma prática comum para manter configurações sensíveis e chaves secretas fora do código-fonte.
+2. **Obtenção da Chave Secreta**:
+   - A chave secreta usada para assinar os tokens é obtida a partir das variáveis de ambiente carregadas pelo `dotenv`. Ela é armazenada na variável `SECRET_KEY`, que deve ser definida no arquivo `.env` para manter a segurança da chave de assinatura.
+3. **Função `generateAccessToken`**:
+   - Esta função é responsável por gerar um token de acesso. Ela aceita um objeto `user` como parâmetro, que normalmente conteria informações sobre o usuário autenticado, como o ID, nome e permissões.
+   - O método `jwt.sign` é usado para criar o token. Os parâmetros passados para `jwt.sign` incluem o payload (as informações a serem incluídas no token), a chave secreta para assinatura e as opções, como o tempo de expiração (`expiresIn`).
+   - Neste exemplo, o token de acesso expira após 15 minutos (15m), o que significa que o usuário terá que reautenticar após esse período.
+4. **Função `generateRefreshToken`**:
+   - Esta função gera um token de atualização, que é usado para obter um novo token de acesso após o token de acesso anterior expirar.
+   - Ela é semelhante à função `generateAccessToken` e também utiliza o `jwt.sign` para criar o token de atualização. Neste caso, o token de atualização expira após 30 minutos (30m).
+5. **Exportação das Funções**:
+   - As funções `hashPassword`, `generateAccessToken`, e `generateRefreshToken` são exportadas como um módulo, tornando-as disponíveis para serem usadas em outros módulos ou partes do projeto.
+
+Esses tokens são parte essencial de um sistema de autenticação seguro e são usados para garantir que os usuários tenham acesso controlado a recursos protegidos, enquanto os tokens de atualização garantem que os usuários possam renovar seu acesso sem a necessidade de autenticação repetida. A chave secreta (`SECRET_KEY`) deve ser protegida e mantida em segurança, pois é usada para assinar os tokens e verificar sua autenticidade.
+
+```jsx
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const SECRET_KEY = process.env.SECRET_KEY; //chave de assinatura do token disponivel no .env
+
+//gera token de acesso
+function generateAccessToken(user) {
+  return jwt.sign(
+    { id: user.id, nome: user.nome, permissao: user.permissao }, //define o payload do token
+    SECRET_KEY, //chave com a qual o token será assinado
+    { expiresIn: "15m" } //define tempo de expiração para 15 minutos
+  );
+}
+//gera token de atualização
+function generateRefreshToken(user) {
+  return jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: "30m" });
+}
+
+//exportação das funções
+module.exports = { hashPassword, generateAccessToken, generateRefreshToken };
+ explique este codigo
+```
+
+### Autenticando o Usuário
+
+Vamos agora criar dentro da pasta **controller** um arquivo **authController.js** que irá autenticar o usuário e fornecer os respectivos tokens bem como dentro da pasta **router** um **authRouter.js** para mapearmos o controller.
+
+1. **Importação de Módulos**:
+   - importamos o modelo de usuário (`User`) do arquivo `userModel`, que contém a definição do modelo de usuário e métodos associados.
+   - Também é importado o módulo `bcrypt`, que é usado para verificar a senha fornecida pelo usuário em relação à senha hasheada armazenada no banco de dados.
+   - Além disso, as funções `generateAccessToken` e `generateRefreshToken` são importadas do módulo `authService`, que contém funções para gerar tokens JWT.
+2. **Função `authenticateUser`**:
+   - Esta função é responsável por autenticar um usuário com base nas informações fornecidas no corpo da requisição HTTP, que incluem o campo `usuario` e `password`
+   - O primeiro passo é buscar um usuário no banco de dados que corresponda ao nome de usuário fornecido, usando o método `findOne` do Sequelize.
+3. **Verificação de Credenciais**:
+   - A função verifica se o usuário foi encontrado no banco de dados e, se encontrado, utiliza a função `bcrypt.compareSync` para comparar a senha fornecida pelo usuário com a senha hasheada armazenada no banco de dados.
+   - Se as credenciais não coincidirem (usuário não encontrado ou senha incorreta), a função retorna uma resposta de erro com status 401 e a mensagem "Credenciais inválidas".
+4. **Geração de Tokens**:
+   - Se as credenciais forem verificadas com sucesso, a função chama as funções `generateAccessToken` e `generateRefreshToken` para criar os tokens de acesso e atualização com base nas informações do usuário recuperadas do banco de dados.
+5. **Resposta da Solicitação**:
+   - Uma vez que os tokens tenham sido gerados com sucesso, a função responde com um status 200 (OK) e envia o nome do usuário, o token de acesso e o token de atualização em formato JSON na resposta.
+6. **Tratamento de Erros**:
+   - Se ocorrerem exceções durante a execução da função, como erros de banco de dados, a função captura essas exceções e responde com um status 500 (Erro Interno do Servidor) e a mensagem "Falha ao autenticar".
+
+```jsx
+const User = require("../model/userModel"); //import do repositorio de usuários
+const bcrypt = require("bcrypt"); //importamos o bcrypt
+
+//import das funções de geração de token
+const {
+  generateAccessToken,
+  generateRefreshToken,
+} = require("../service/authService");
+
+//função identifica o usuário e valida credenciais
+async function authenticateUser(req, res) {
+  const { usuario, password } = req.body; //recebe pelo corpo da requisição usuario e senha
+  try {
+    //busca o usuário atraves do usuario fornecido no banco usando o método find one com where do sequelize
+    const user = await User.findOne({
+      where: { nome: usuario },
+    });
+    //verifica se o usuario existe e se caso existir se a senha fornecisa confere caso falhe retorna a mensagem de erro
+    if (!user || !bcrypt.compareSync(password, user.password)) {
+      return res.status(401).json({ msg: "Credenciais inválidas" });
+    }
+    //gera os token atraves do user recuperado do banco
+    const accessToken = generateAccessToken(user);
+    const refreshToken = generateRefreshToken(user);
+    res.status(200).json({
+      nome: user.nome,
+      accessToken,
+      refreshToken,
+    });
+  } catch (err) {
+    //caso algo de errado retorna a mensagem de erro
+    console.log(err);
+    res.status(500).json({ msg: "Falha ao autenticar" });
+  }
+}
+
+module.exports = { authenticateUser };
+```
+
+Mapeamento em **authRouter.js**:
+
+```jsx
+const express = require("express"); //importação do express
+const routes = express.Router(); //importação do Router da biblioeca express
+
+const { authenticateUser } = require("../controller/authController");
+
+//mapeameno da rota de login
+routes.post("/login", authenticateUser);
+
+//exportamos o objeto routes
+module.exports = routes;
+```
+
+### Validando os Tokens e Bloqueando Rotas
+
+Agora vamos modificar o arquivo authService.js adicionando as funções responsáveis por validar os tokens.
+
+1. **Função `requirePermission(...permission)`**:
+   - Esta função é um middleware que verifica se um token de acesso é válido e se o usuário tem as permissões necessárias para acessar uma rota específica. Ela é usada para proteger rotas ou endpoints que requerem permissões específicas.
+   - A função recebe um ou mais argumentos (usando o operador **`...`** para coletá-los em um array chamado **`permission`**). Esses argumentos representam as permissões necessárias para acessar a rota. Por exemplo, **`requirePermission("admin", "editor")`** exige que o usuário tenha pelo menos uma das duas permissões (admin ou editor).
+   - A função recebe os parâmetros **`req`** (requisição), **`res`** (resposta) e **`next`** (função para passar a requisição para o próximo middleware ou controlador na cadeia de middleware).
+   - Ela extrai o token de acesso do cabeçalho de autorização da requisição, remove a palavra "Bearer" que geralmente precede o token e, em seguida, decodifica o token usando a chave de assinatura (**`SECRET_KEY`**).
+   - Se o token não estiver presente, a função responde com um status 401 (Não Autorizado) e uma mensagem informando que o token de acesso não foi fornecido.
+   - Se o token estiver presente, mas for inválido, a função responde com um status 401 e uma mensagem informando que o token de acesso é inválido.
+   - Se o token for válido, a função verifica se o usuário possui permissões que correspondem a pelo menos uma das permissões passadas como argumentos. Se não houver correspondência, a função responde com um status 403 (Proibido), indicando que o acesso não é autorizado.
+   - Se o token for válido e o usuário possuir as permissões adequadas, o token decodificado é armazenado na requisição (**`req.user`**) para ser acessado posteriormente e, em seguida, a função chama **`next()`**, permitindo que a requisição prossiga para o controlador da rota.
+2. **Função `validadeRefresh(refreshToken)`**:
+   - Esta função verifica se um token de atualização (refresh token) é válido. Os tokens de atualização são usados para obter novos tokens de acesso após a expiração do token anterior.
+   - A função recebe o token de atualização como argumento e tenta decodificá-lo usando a chave de assinatura (**`SECRET_KEY`**).
+   - Se o token de atualização for válido, a função retorna o token decodificado. Caso contrário, ela retorna **`null`**.
+3. **Exportação de Funções**:
+
+   - As funções **`hashPassword`**, **`generateAccessToken`**, **`generateRefreshToken`**, **`requirePermission`** e **`validadeRefresh`** são exportadas como um módulo, tornando-as disponíveis para serem usadas em outros módulos ou partes do projeto.
+
+   ```jsx
+   //verifica se o token de acesso é valido recebe rest params dependo das opções de usuarios que forem determinadas
+   function requirePermission(...permission) {
+     //parametro next passa a requisição para o controller caso o token seja valido
+     return (req, res, next) => {
+       const accessToken = req.headers.authorization; //extrai o token do cabeçalho d eautorização
+
+       //verifica se o token está presente
+       if (!accessToken) {
+         return res
+           .status(401)
+           .json({ message: "Token de acesso não fornecido" });
+       }
+
+       try {
+         //decodifica o token
+         const decoded = jwt.verify(
+           accessToken.replace("Bearer ", ""), // remove a palavra Bearer que acompanha o token no cabeçalho.
+           SECRET_KEY //compara com a chave de assinatura
+         );
+         //verifica se o token foi valido e decodificado bem como se a permissao atende aquela rota
+         if (!decoded || !permission.includes(decoded.permissao)) {
+           return res.status(403).json({ message: "Acesso não autorizado" });
+         }
+
+         req.user = decoded; // torna o token decodificado acessível para o controller seguinte
+         next(); //passa para o controller na rota
+       } catch (err) {
+         //informa que o token é invalido
+         res.status(401).json({ message: "Token de acesso inválido" });
+       }
+     };
+   }
+
+   //verifica se o token de atualização é valido
+   function validadeRefresh(refreshToken) {
+     try {
+       const decodedRefresh = jwt.verify(
+         refreshToken.replace("Bearer ", ""),
+         SECRET_KEY
+       );
+       return decodedRefresh;
+     } catch (err) {
+       return null;
+     }
+   }
+
+   //exportação das funções
+   module.exports = {
+     hashPassword,
+     generateAccessToken,
+     generateRefreshToken,
+     requirePermission,
+     validadeRefresh,
+   };
+   ```
+
+   Podemos agora bloquear as rotas colocando a função requirePermission como um middleware entre a rota e controller mapeado. Vamo fazer isso no arquivo **userRouter.js**.
+
+   ```jsx
+   //importação do middleware
+   const { requirePermission } = require("../service/authService");
+
+   routes.get(
+     "/usuarios",
+     requirePermission("admin", "user"),
+     recuperarUsuarios
+   ); //neste caso tanto um user como admin podem acessar os usuarios
+   routes.post("/usuario", requirePermission("admin"), adicionarUsuario); //neste caso so um admin pode adicionar outro usuário
+   ```
+
+   Se o seu projeto não requer a implementação de funções ou permissões distintas para diferentes tipos de usuários, você pode simplificar o processo de autenticação e autorização eliminando a verificação de permissão na função **`requirePermission`**. Nesse caso, a função **`requirePermission`** pode ser ajustada para validar apenas a autenticidade do token de acesso, sem a necessidade de verificar se o usuário possui permissões específicas. Dessa forma, a função se torna uma verificação básica de autenticação, sem a necessidade de considerar papéis ou permissões diferenciados.
+
+   Vamos agora adicionar uma função em **authController.js** que renova os tokens quando um refresh token é fornecido.
+
+   1. **Parâmetros e Importações**:
+      - A função é projetada para ser usada como um controlador para uma rota específica em um servidor web. Portanto, ela espera receber a requisição (**`req`**) e a resposta (**`res`**) como parâmetros.
+   2. **Extração do Token de Atualização**:
+      - A função extrai o token de atualização do cabeçalho de autorização da requisição, semelhante ao que a função **`requirePermission`** faz.
+   3. **Verificação do Token de Atualização**:
+      - A função chama a função **`validadeRefresh`** para verificar se o token de atualização é válido. Se o token de atualização for válido, **`validadeRefresh`** retorna o token decodificado, que contém informações sobre o usuário.
+   4. **Geração de Novos Tokens**:
+      - Se o token de atualização for válido, a função procura o usuário no banco de dados com base nas informações contidas no token de atualização (por exemplo, o ID do usuário). Isso é feito chamando **`UserRepository.findByPk(decodedRefresh.id)`**.
+      - Em seguida, a função gera novos tokens de acesso e atualização para o usuário com base nas informações recuperadas do banco de dados. Isso é feito chamando as funções **`generateAccessToken`** e **`generateRefreshToken`** com o usuário como argumento.
+   5. **Resposta da Solicitação**:
+      - Se o token de atualização for válido e a renovação for bem-sucedida, a função responde com um status 200 (OK) e envia os novos tokens de acesso e atualização em formato JSON na resposta.
+   6. **Tratamento de Erros**:
+      - Se ocorrerem exceções durante a execução da função, como erros de banco de dados ou problemas com o token de atualização, a função captura essas exceções e responde com um status 401 (Não Autorizado) ou 500 (Erro Interno do Servidor), dependendo da natureza do erro.
+   7. **Exportação das Funções**:
+
+      - A função **`authenticateUser`** e a função **`renovarTokens`** são exportadas como um módulo, tornando-as disponíveis para serem usadas em outros módulos ou partes do projeto.
+
+      ```jsx
+      //import das funções de geração de token
+      const {
+        generateAccessToken,
+        generateRefreshToken,
+        validadeRefresh,
+      } = require("../service/authService");
+
+      //renova os tokens de acesso e atualização
+      async function renovarTokens(req, res) {
+        const refreshToken = req.headers.authorization;
+
+        try {
+          const decodedRefresh = validadeRefresh(refreshToken);
+
+          if (decodedRefresh) {
+            const user = await UserRepository.findByPk(decodedRefresh.id);
+            const newAccessToken = generateAccessToken(user);
+            const newRefreshToken = generateRefreshToken(user);
+
+            res
+              .status(200)
+              .json({
+                accessToken: newAccessToken,
+                refreshToken: newRefreshToken,
+              });
+          } else {
+            res.status(401).json({ message: "Refresh token inválido" });
+          }
+        } catch (err) {
+          console.log(err);
+          res.status(500).json({ message: "Erro ao renovar tokens" });
+        }
+      }
+
+      module.exports = { authenticateUser, renovarTokens };
+      ```
+
+      Podemos agora mapear este controller em authRouter:
+
+      ```jsx
+      const express = require("express"); //importação do express
+      const routes = express.Router(); //importação do Router da biblioeca express
+
+      const {
+        authenticateUser,
+        renovarTokens,
+      } = require("../controller/authController");
+
+      //mapeamento da rota de login
+      routes.post("/login", authenticateUser);
+      routes.post("/refresh", renovarTokens);
+
+      //exportamos o objeto routes
+      module.exports = routes;
+      ```
+
+      ## Finalizando o server e criando Usuário admin master
+
+      Agora vamos finalizar importando todos os routers para o server fazendo com que as rotas fiquem disponíveis. Vamos também criar um usuário admin padrão quando o servidor iniciar.
+
+      1. **Função `criaAdmin`**:
+         - Esta função é projetada para ser executada como um utilitário ou função de inicialização. Ela não recebe parâmetros da requisição ou resposta, pois é usada para realizar uma tarefa específica, que é verificar a existência de um usuário administrativo no sistema e, se necessário, criar esse usuário.
+      2. **Bloco `try`**:
+         - O código usa um bloco **`try`** para capturar e lidar com exceções que possam ocorrer durante a execução da função.
+      3. **Consulta ao Banco de Dados**:
+         - A função utiliza o método **`findOrCreate`** do Sequelize para verificar a existência de um usuário com o ID igual a 1 no banco de dados. O método **`findOrCreate`** tentará encontrar um registro que atenda aos critérios especificados (neste caso, um usuário com ID 1), e se não encontrar, criará um novo registro com os valores especificados em **`defaults`**.
+      4. **Desestruturação da Resposta**:
+         - A função **`findOrCreate`** retorna um array com dois elementos: o primeiro é o objeto que representa o usuário (encontrado ou criado), e o segundo é um valor booleano (**`true`** se o usuário foi criado, **`false`** se o usuário já existia).
+         - O código utiliza a desestruturação para extrair esses dois valores nas variáveis **`user`** e **`created`**. Isso permite verificar se o usuário foi criado ou se já existia.
+      5. **Verificação de Criação**:
+         - A função verifica se o usuário foi criado ou se já existia. Se **`created`** for **`true`**, isso significa que o usuário foi criado com sucesso e exibe uma mensagem indicando que as linhas foram criadas com sucesso. Se **`created`** for **`false`**, isso significa que o usuário já existia na tabela e exibe uma mensagem informando que as linhas já existem.
+      6. **Tratamento de Erros**:
+         - Se ocorrerem exceções durante a consulta ao banco de dados ou qualquer outra parte da função, o bloco **`catch`** capturará a exceção e exibirá detalhes do erro no console.
+
+      Observe o **server.js** final abaixo:
+
+      ```jsx
+      const express = require("express");
+      const cors = require("cors");
+      const morgan = require("morgan");
+      const bd = require("./bd");
+      const User = require("./model/userModel");
+      const { hashPassword } = require("./service/authService");
+      //importamos as rotas do usuário
+      const userRoutes = require("./router/userRouter");
+      const authRoutes = require("./router/authRouter");
+
+      const app = express(); //inicia o express
+      app.use(morgan("dev")); //imprime os logs das operações durante o desenvolvimento
+      app.use(cors()); //libera o cross origin
+      app.use(express.json()); // configura a API para receber e enviar json.
+      app.use(userRoutes); // torna as rotas  disponíveis para uso
+      app.use(authRoutes);
+
+      //rota padrão na qual podemos verificar se o servidor está disponível
+      app.get("/", async (req, res) => {
+        res.status(200).json({ msg: "Api ok!" });
+      });
+
+      //verifica se admin já existe caso contrario cria um admin
+      async function criaAdmin() {
+        try {
+          const [user, created] = await User.findOrCreate({
+            where: { id: 1 },
+            defaults: {
+              nome: "root",
+              password: await hashPassword("12345"),
+              permissao: "admin",
+            },
+          });
+          if (created) {
+            console.log("Linhas criadas com sucesso!");
+          } else {
+            console.log("Linhas já existem na tabela.");
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
+      //inicia o servidor através de uma self-invoked function
+      (async () => {
+        try {
+          await bd.sync({ force: false }); // sincroniza o banco
+          await criaAdmin();
+          console.log("Banco conectado!");
+          app.listen(3000, () => console.log("Service is live!")); //iniciar efetivamente o servidor na porta 3000
+        } catch (err) {
+          console.log(err);
+        }
+      })();
+      ```
+
+      ## Testando o Projeto
+
+      Agora caso tentarmos criar um usuário sem realizar o login o sistema devolve uma mensagem solicitando o token.
+
+      ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/afa740ff-294a-4de5-90bd-964c5afe8ec4/Untitled.png)
+
+      Devemos então realizar login com um admin para criarmos um usuário
+
+      ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/47376704-7011-43db-9a84-65f168e850fb/Untitled.png)
+
+      Podemos agora copiar(sem as aspas) o token de acesso e colar no campo Authorization selecionando Bearer Token.
+
+      ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/25755515-2910-43cd-abc1-760c7d87ca64/Untitled.png)
+
+      Ao fornecer o token passa a ser possível a criação do usuário Maria.

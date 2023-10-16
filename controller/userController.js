@@ -1,6 +1,8 @@
 const User = require("../model/userModel"); //import do model de user que criamos anteiormente
 const sequelize = require("../bd"); //importe do sequelize para definir controle de transações (Transaction Control Language, TCL)
 
+const { hashPassword } = require("../service/authService");
+
 //req-> paramentro que recebe a requisição
 //res ->parametro que configura a resposta da requisição
 
@@ -25,10 +27,11 @@ async function recuperarUsuarios(req, res) {
 async function adicionarUsuario(req, res) {
   const { nome, password, permissao } = req.body; //desestruturação do objeto presente no corpo da requisição
   try {
+    const hash = await hashPassword(password); //produz a hash a partir da senha informada
     //recebe json como argumento do novo elemento que será criado e retorna elemento que foi criado
     const novoUsuario = await User.create({
       nome: nome,
-      password: password,
+      password: hash, // recebe e armazena hash + sal no banco
       permissao: permissao,
     });
     res.status(201).json(novoUsuario); //retorna para o cliente código 201 created e o json do novo elemento
