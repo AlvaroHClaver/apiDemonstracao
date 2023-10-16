@@ -6,13 +6,15 @@ Uma Interface de Programação de Aplicativos para a web, ou simplesmente APIs, 
 
 As APIs são o meio de caminho entre o banco de dados e o cliente em sistemas de software. Ela recebe as solicitações do cliente, executa a lógica de negócios, como autenticação e autorização, e traduz essas solicitações em comandos compreensíveis para o banco de dados. Posteriormente, a API recebe as respostas do banco de dados e as retorna de forma estruturada ao cliente. Além de facilitar a comunicação, a API oferece benefícios essenciais, como segurança, abstração dos detalhes técnicos do banco de dados e flexibilidade para realizar alterações no sistema sem afetar diretamente o cliente.
 
-![image](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/578e089d-b208-4f69-ba46-e44bfe3d72d0)
+![rest](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/b9184805-6546-4d29-b5e9-55cf5fd0d7cc)
+
 
 ## Protocolo HTTP
 
 O Protocolo HTTP (Hypertext Transfer Protocol) é uma linguagem padronizada que permite a comunicação entre clientes e servidores na web. Ele opera sobre o protocolo TCP (Transmission Control Protocol) e define como as mensagens são formatadas e transmitidas, facilitando a recuperação de recursos, como páginas da web e dados, por meio de URLs. As solicitações HTTP são geralmente compostas por métodos, como GET, POST, PUT e DELETE, que determinam a ação a ser realizada no servidor, e os cabeçalhos, que contêm informações adicionais sobre a solicitação. As respostas do servidor incluem códigos de status para indicar o sucesso ou a falha da solicitação e o conteúdo desejado. O HTTP é a base da World Wide Web e é amplamente utilizado em APIs, pois oferece uma estrutura consistente e eficiente para a comunicação entre sistemas distribuídos na internet. Isso permite que aplicativos e serviços interajam de maneira previsível, o que é fundamental para a integração e a interoperabilidade em um ambiente web global.
 
-![image](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/f7335b0a-5b9e-4ae0-a09e-239f83f50b1e)
+![http](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/babac711-3d3a-4412-8936-9b94a1e0faa8)
+
 
 ## CRUD
 
@@ -30,7 +32,7 @@ As operações CRUD (Create, Read, Update, Delete) desempenham um papel central 
 3. **PUT ou PATCH (Update)**: O método PUT (ou em alguns casos o PATCH) é empregado para atualizar um recurso existente. Isso reflete a operação de atualização (Update) em CRUD.
 4. **DELETE (Delete)**: O método DELETE é usado para remover um recurso. Essa ação se alinha com a operação de exclusão (Delete) em CRUD.
 
-![image](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/911ccae1-f07b-4734-8f9a-69eb6fe3036d)
+![crud](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/ba939695-2f17-4fa9-8d48-28de686e1501)
 
 ### Links Uteis
 
@@ -40,7 +42,8 @@ As operações CRUD (Create, Read, Update, Delete) desempenham um papel central 
 
 ORM (Object-Relational Mapping) e ODM (Object-Document Mapping) são padrões de mapeamento que facilitam a interação entre sistemas de software e bancos de dados relacionais (no caso do ORM) ou bancos de dados NoSQL orientados a documentos (no caso do ODM). A principal motivação para o uso de objetos de mapeamento é a abstração do banco de dados permitindo interagir com o banco de dados sem precisar escrever SQL diretamente. Outra motivação é que o código ORM é frequentemente independente do banco de dados subjacente, permitindo uma mudança mais fácil de um banco de dados para outro.
 
-![image](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/368470c6-6739-452e-80bf-831916ff1a73)
+![orm](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/4c76e706-30e3-4d5c-9494-ee0cb38d0bfe)
+
 
 ### Leitura complementar
 
@@ -64,7 +67,8 @@ Configure também um comando de inicialização da aplicação atrelado ao nodem
 
 Ao final do processo você deve ter a seguinte estrutura de arquivo e package.json.
 
-<img width="249" alt="Untitled" src="https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/e2ee327a-b610-4f9f-8374-09289bab6a02">
+<img width="249" alt="pasta" src="https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/6a4869b4-c631-4eca-bba2-c7acfce9d905">
+
 
 ```jsx
 {
@@ -184,8 +188,8 @@ Service is live!
 
 Também podemos verificar que a aplicação foi iniciada corretamente através da rota que definimos para esta finalidade no server. Em seu navegador use a url [http://localhot:3000](http://localhot:3000/) e verifique se a mensagem {msg:Api ok!} foi exibida.
 
-![Untitled](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/9651e329-656e-4cc3-8d67-a4587d241c33)
-![Untitled2](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/38c5d4c1-a5b2-41d6-bb7e-4efb23afd0ca)
+![nav1](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/b40c5170-158a-48db-b422-bee117b4db6e)
+![nav2](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/3117a829-65ae-497f-8bee-bd2973ceb887)
 
 ### Criando um Schema com Sequelize
 
@@ -456,7 +460,8 @@ app.get("/", async (req, res) => {
 
 Agora execute novamente a aplicação através do comando npm start . Observe que o sequelize se encarregara da criação da tabela usuarios no banco.
 
-![Captura de Tela 2023-10-14 às 23 34 27](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/931cf08f-4786-4e41-abe1-f49e99c51846)
+
+![terminal](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/ffa773bc-d551-4c37-a42d-2c4f2b931530)
 
 Neste momento a API já está pronta para receber requisições.
 
@@ -468,39 +473,35 @@ Site para download do [Postman](https://www.postman.com)
 
 Requisição GET de todos os usuários cadastrados. Como acabamos de criar o banco ainda não existe nenhum usuário.
 
-![Captura de Tela 2023-10-15 às 11 35 27](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/fe3f16ab-b686-47b5-9dd9-fa2968be8461)
+![p1](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/4b3e56dd-70be-4de3-a186-05532762e886)
 
 Agora vamos criar um usuário através do método POST passando um JSON no corpo da requisição. Observe também que não foi necessário informar um id uma vez que o sequelize gerencia as chaves primárias na tabela.
 
-
-![Captura de Tela 2023-10-15 às 11 37 12](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/dee19669-8cdd-4865-8265-e55823564974)
+![p2](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/fb2b6c96-7737-44aa-89af-cc8b04a6f9fe)
 
 Podemos agora adicionar mais um usuário.
+![p3](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/9414226e-b0e9-43a1-9231-adc7e0960860)
 
-![Captura de Tela 2023-10-15 às 11 40 18](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/364e72ef-9878-4306-9976-f12327ffa4b2)
 
 Agora podemos recuperar todos os usuários no banco através do método GET. Observe que é retornado um array de objetos.
-
-![Captura de Tela 2023-10-15 às 11 41 09](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/23697992-74ef-41e7-8b36-fa064b330844)
+![p4](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/c8516f64-fc82-4efe-ab5b-7a80fac58afb)
 
 Podemos também buscar por um usuário especifico informando seu is na url de requisição.
-
-![Captura de Tela 2023-10-15 às 11 42 23](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/7ac16d2a-ab0d-4f45-b13c-36160846bccb)
+![p5](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/6ec870c0-42bc-4590-a4c3-0cff93b9056e)
 
 Vamos agora editar um usuário. Podemos tanto informar somente um parâmetro como todos os outros no corpo da requisição.
-![Captura de Tela 2023-10-15 às 11 45 25](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/6a40f81d-8c6b-4792-ad50-e5b937462ab8)
+![p6](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/317c26ff-ccf1-4e6a-8fa0-3d9ae89be77d)
 
 Usuário Alvaro atualizado.
 
-![Captura de Tela 2023-10-15 às 11 45 55](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/a387058c-da92-46c9-80b3-0099faec44e1)
+![p7](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/1d092197-4695-435d-a065-b017d5a018ff)
 
 Agora vamos excluir um usuário. Para isso precisamos informar o id do usuário que queremos excluir.
-
-![Captura de Tela 2023-10-15 às 11 49 43](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/51a35925-73b2-432c-9b2d-e0c93bc54439)
+![p8](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/6a907563-a341-4874-8245-9d3aabdfe3d8)
 
 Lista de usuários atualizada.
 
-![Captura de Tela 2023-10-15 às 11 51 57](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/9dae2195-d5cb-49a0-9eef-530ad10b667a)
+![p9](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/8e93ed1a-5e7e-45df-9a10-10d848174810)
 
 ### CORS (Cross-Origin Resource Sharing)
 
@@ -531,7 +532,8 @@ Existem dois tipos gerais de token:
 2. **Carga Útil (Payload)**: A segunda parte do JWT é a carga útil, que contém as informações reivindicadas sobre o usuário ou entidade que está autenticando. Essas informações são chamadas de "claims" e podem incluir dados como o ID do usuário, papéis ou funções, informações de expiração e muito mais. Existem três tipos de claims: reivindicações registradas, reivindicações públicas e reivindicações privadas.
 3. **Assinatura (Signature)**: A terceira parte do JWT é a assinatura, que é usada para verificar a integridade do token e garantir que ele não tenha sido adulterado durante a transmissão. A assinatura é gerada usando a chave secreta do servidor de autenticação e os dados do cabeçalho e da carga útil. Quando o receptor do token recebe o JWT, ele verifica a assinatura usando a chave pública do servidor de autenticação. Se a assinatura corresponder, isso indica que o token é válido e não foi modificado.
 
-![Captura de Tela 2023-10-15 às 12 57 42](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/b82fa7ca-3d9b-4d56-8723-af42857718fd)
+![jwt](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/bda5b716-8283-418d-943c-b299f7ba96f1)
+
 
 
 **Link para o JWT Debugger:**
@@ -619,7 +621,7 @@ async function adicionarUsuario(req, res) {
 
 Agora quando adicionamos um novo usuário a senha será armazenada como uma hash.
 
-![Captura de Tela 2023-10-15 às 20 03 55](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/bce22001-043c-412d-a773-55cf38858f8c)
+![Captura de Tela 2023-10-15 às 20 03 55](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/82c41b63-0749-43da-a112-dceaf60bf928)
 
 
 ### Gerando os tokens
@@ -1001,21 +1003,20 @@ Agora vamos modificar o arquivo authService.js adicionando as funções respons�
 
       ## Testando o Projeto
 
-      Agora caso tentarmos criar um usuário sem realizar o login o sistema devolve uma mensagem solicitando o token.
-
-     ![Captura de Tela 2023-10-15 às 22 00 39](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/1ffbed2f-767b-499c-acf2-be719500e8c1)
+ Agora caso tentarmos criar um usuário sem realizar o login o sistema devolve uma mensagem solicitando o token.
 
 
-      Devemos então realizar login com um admin para criarmos um usuário
+![Captura de Tela 2023-10-15 às 22 00 39](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/954a25b4-bd8a-411c-bad4-a6870c3c8c64)
 
-      ![Captura de Tela 2023-10-15 às 22 02 44](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/c52e6328-eab0-44ea-b361-b8e1acd65bfb)
+  Devemos então realizar login com um admin para criarmos um usuário
+  ![Captura de Tela 2023-10-15 às 22 02 44](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/07833605-73ae-4c74-9df5-7a66fb78ba5e)
 
 
-      Podemos agora copiar(sem as aspas) o token de acesso e colar no campo Authorization selecionando Bearer Token.
+ Podemos agora copiar(sem as aspas) o token de acesso e colar no campo Authorization selecionando Bearer Token.
    
-![Captura de Tela 2023-10-15 às 22 05 39](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/2b80c359-0ebd-4a9b-813d-468a13f4df01)
+![Captura de Tela 2023-10-15 às 22 05 39](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/ffe46b6b-cbf5-4c96-87d8-c634d4fa5a23)
 
      
   Ao fornecer o token passa a ser possível a criação do usuário Maria.
-      
-![Captura de Tela 2023-10-15 às 22 07 42](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/07e3854a-6ef7-44a7-837d-36a4566e97e5)
+ ![Captura de Tela 2023-10-15 às 22 07 42](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/fceca95f-7388-45e7-b1f2-9aec331be3aa)
+
