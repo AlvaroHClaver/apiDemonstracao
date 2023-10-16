@@ -1,5 +1,7 @@
 # API REST
 
+[NOTION](https://www.notion.so/API-REST-6e2272325fca4ba9bb17bd64a1fb867c?pvs=4)
+
 # Introdução
 
 Uma Interface de Programação de Aplicativos para a web, ou simplesmente APIs, são uma peça fundamental na interconexão e na colaboração de sistemas de software pela internet. As APIs HTTP, mais especificamente são como pontes invisíveis que permitem que diferentes aplicativos, plataformas e serviços comuniquem-se e compartilhem dados de maneira eficiente através do protocolo HTTP (Hypertext Transfer Protocol). Nos últimos anos, o universo das APIs HTTP tem vivenciado um crescimento exponencial, impulsionado pela necessidade de integração entre sistemas web e expansão de ecossistemas digitais.
@@ -8,13 +10,11 @@ As APIs são o meio de caminho entre o banco de dados e o cliente em sistemas de
 
 ![rest](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/b9184805-6546-4d29-b5e9-55cf5fd0d7cc)
 
-
 ## Protocolo HTTP
 
 O Protocolo HTTP (Hypertext Transfer Protocol) é uma linguagem padronizada que permite a comunicação entre clientes e servidores na web. Ele opera sobre o protocolo TCP (Transmission Control Protocol) e define como as mensagens são formatadas e transmitidas, facilitando a recuperação de recursos, como páginas da web e dados, por meio de URLs. As solicitações HTTP são geralmente compostas por métodos, como GET, POST, PUT e DELETE, que determinam a ação a ser realizada no servidor, e os cabeçalhos, que contêm informações adicionais sobre a solicitação. As respostas do servidor incluem códigos de status para indicar o sucesso ou a falha da solicitação e o conteúdo desejado. O HTTP é a base da World Wide Web e é amplamente utilizado em APIs, pois oferece uma estrutura consistente e eficiente para a comunicação entre sistemas distribuídos na internet. Isso permite que aplicativos e serviços interajam de maneira previsível, o que é fundamental para a integração e a interoperabilidade em um ambiente web global.
 
 ![http](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/babac711-3d3a-4412-8936-9b94a1e0faa8)
-
 
 ## CRUD
 
@@ -44,7 +44,6 @@ ORM (Object-Relational Mapping) e ODM (Object-Document Mapping) são padrões de
 
 ![orm](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/4c76e706-30e3-4d5c-9494-ee0cb38d0bfe)
 
-
 ### Leitura complementar
 
 [O que é ORM?](https://www.treinaweb.com.br/blog/o-que-e-orm)
@@ -68,7 +67,6 @@ Configure também um comando de inicialização da aplicação atrelado ao nodem
 Ao final do processo você deve ter a seguinte estrutura de arquivo e package.json.
 
 <img width="249" alt="pasta" src="https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/6a4869b4-c631-4eca-bba2-c7acfce9d905">
-
 
 ```jsx
 {
@@ -460,7 +458,6 @@ app.get("/", async (req, res) => {
 
 Agora execute novamente a aplicação através do comando npm start . Observe que o sequelize se encarregara da criação da tabela usuarios no banco.
 
-
 ![terminal](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/ffa773bc-d551-4c37-a42d-2c4f2b931530)
 
 Neste momento a API já está pronta para receber requisições.
@@ -481,7 +478,6 @@ Agora vamos criar um usuário através do método POST passando um JSON no corpo
 
 Podemos agora adicionar mais um usuário.
 ![p3](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/9414226e-b0e9-43a1-9231-adc7e0960860)
-
 
 Agora podemos recuperar todos os usuários no banco através do método GET. Observe que é retornado um array de objetos.
 ![p4](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/c8516f64-fc82-4efe-ab5b-7a80fac58afb)
@@ -533,8 +529,6 @@ Existem dois tipos gerais de token:
 3. **Assinatura (Signature)**: A terceira parte do JWT é a assinatura, que é usada para verificar a integridade do token e garantir que ele não tenha sido adulterado durante a transmissão. A assinatura é gerada usando a chave secreta do servidor de autenticação e os dados do cabeçalho e da carga útil. Quando o receptor do token recebe o JWT, ele verifica a assinatura usando a chave pública do servidor de autenticação. Se a assinatura corresponder, isso indica que o token é válido e não foi modificado.
 
 ![jwt](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/bda5b716-8283-418d-943c-b299f7ba96f1)
-
-
 
 **Link para o JWT Debugger:**
 
@@ -622,7 +616,6 @@ async function adicionarUsuario(req, res) {
 Agora quando adicionamos um novo usuário a senha será armazenada como uma hash.
 
 ![Captura de Tela 2023-10-15 às 20 03 55](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/82c41b63-0749-43da-a112-dceaf60bf928)
-
 
 ### Gerando os tokens
 
@@ -887,12 +880,10 @@ Agora vamos modificar o arquivo authService.js adicionando as funções respons�
             const newAccessToken = generateAccessToken(user);
             const newRefreshToken = generateRefreshToken(user);
 
-            res
-              .status(200)
-              .json({
-                accessToken: newAccessToken,
-                refreshToken: newRefreshToken,
-              });
+            res.status(200).json({
+              accessToken: newAccessToken,
+              refreshToken: newRefreshToken,
+            });
           } else {
             res.status(401).json({ message: "Refresh token inválido" });
           }
@@ -1003,20 +994,16 @@ Agora vamos modificar o arquivo authService.js adicionando as funções respons�
 
       ## Testando o Projeto
 
- Agora caso tentarmos criar um usuário sem realizar o login o sistema devolve uma mensagem solicitando o token.
-
+Agora caso tentarmos criar um usuário sem realizar o login o sistema devolve uma mensagem solicitando o token.
 
 ![Captura de Tela 2023-10-15 às 22 00 39](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/954a25b4-bd8a-411c-bad4-a6870c3c8c64)
 
-  Devemos então realizar login com um admin para criarmos um usuário
-  ![Captura de Tela 2023-10-15 às 22 02 44](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/07833605-73ae-4c74-9df5-7a66fb78ba5e)
+Devemos então realizar login com um admin para criarmos um usuário
+![Captura de Tela 2023-10-15 às 22 02 44](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/07833605-73ae-4c74-9df5-7a66fb78ba5e)
 
+Podemos agora copiar(sem as aspas) o token de acesso e colar no campo Authorization selecionando Bearer Token.
 
- Podemos agora copiar(sem as aspas) o token de acesso e colar no campo Authorization selecionando Bearer Token.
-   
 ![Captura de Tela 2023-10-15 às 22 05 39](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/ffe46b6b-cbf5-4c96-87d8-c634d4fa5a23)
 
-     
-  Ao fornecer o token passa a ser possível a criação do usuário Maria.
- ![Captura de Tela 2023-10-15 às 22 07 42](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/fceca95f-7388-45e7-b1f2-9aec331be3aa)
-
+Ao fornecer o token passa a ser possível a criação do usuário Maria.
+![Captura de Tela 2023-10-15 às 22 07 42](https://github.com/AlvaroHClaver/apiDemonstracao/assets/111446977/fceca95f-7388-45e7-b1f2-9aec331be3aa)
