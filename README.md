@@ -619,7 +619,8 @@ async function adicionarUsuario(req, res) {
 
 Agora quando adicionamos um novo usuário a senha será armazenada como uma hash.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/061dd6f6-6c7c-4aca-be7c-c2e0c96718d6/Untitled.png)
+![Captura de Tela 2023-10-15 às 20 03 55](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/bce22001-043c-412d-a773-55cf38858f8c)
+
 
 ### Gerando os tokens
 
@@ -1002,14 +1003,19 @@ Agora vamos modificar o arquivo authService.js adicionando as funções respons�
 
       Agora caso tentarmos criar um usuário sem realizar o login o sistema devolve uma mensagem solicitando o token.
 
-      ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/afa740ff-294a-4de5-90bd-964c5afe8ec4/Untitled.png)
+     ![Captura de Tela 2023-10-15 às 22 00 39](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/1ffbed2f-767b-499c-acf2-be719500e8c1)
+
 
       Devemos então realizar login com um admin para criarmos um usuário
 
-      ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/47376704-7011-43db-9a84-65f168e850fb/Untitled.png)
+      ![Captura de Tela 2023-10-15 às 22 02 44](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/c52e6328-eab0-44ea-b361-b8e1acd65bfb)
+
 
       Podemos agora copiar(sem as aspas) o token de acesso e colar no campo Authorization selecionando Bearer Token.
+   
+![Captura de Tela 2023-10-15 às 22 05 39](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/2b80c359-0ebd-4a9b-813d-468a13f4df01)
 
-      ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/123b9f29-ec7b-4cef-a348-f6b498678846/25755515-2910-43cd-abc1-760c7d87ca64/Untitled.png)
-
-      Ao fornecer o token passa a ser possível a criação do usuário Maria.
+     
+  Ao fornecer o token passa a ser possível a criação do usuário Maria.
+      
+![Captura de Tela 2023-10-15 às 22 07 42](https://github.com/MackLEAPS-Oriente/apiDemostracao/assets/111446977/07e3854a-6ef7-44a7-837d-36a4566e97e5)
